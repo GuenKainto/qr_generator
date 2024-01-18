@@ -19,9 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   late String _subFix = "TimeKeeping";
   late QRData_model _qrData = QRData_model(_preFix, DateTime.now().toString(), _subFix);
   late int _timeSecWait = 10;
-  late Timer _timeCount;       // For run update QR after timeSecWait seconds
-  late QR_Model _qr = QR_Model(decodeBase64(_qrData.toString()), QrVersions.auto, 200);           // config qr image
-  late int _secondsRemaining = _timeSecWait;  // use for showing time countDown\
+  late Timer _timeCount;                                                                    // For run update QR after timeSecWait seconds
+  late QR_Model _qr = QR_Model(decodeBase64(_qrData.toString()), QrVersions.auto, 200);     // config qr image
+  late int _secondsRemaining = _timeSecWait;                                                // use for showing time countDown\
   final DataManager _dataManager = DataManager();
 
   @override
@@ -101,6 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -157,9 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         color: Colors.blue[300],
-
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+          margin: EdgeInsets.symmetric(vertical: screenHeight * 0.07, horizontal: screenWidth * 0.07),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(45), topRight: Radius.circular(45),
@@ -185,28 +188,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(height: 20,),
                 QrImageView(
                   data: _qr.data,
                   version: _qr.version,
                   size: _qr.size,
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 10,),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 60),
                   child: Text(_qr.data,)
                 ),
-                const SizedBox(height: 100,),
+                const SizedBox(height: 50,),
                 ElevatedButton(
                   onPressed: () => toggleState(),
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(100, 100),
+                    fixedSize: const Size(80, 80),
                     elevation: 10,
                   ),
                   child: Text(
                     _isAutoUpdateQR ? "Stop" : "Start",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 14,
                         color: _isAutoUpdateQR ? Colors.red[800] : Colors.green[400]),
                   ),
                 ),

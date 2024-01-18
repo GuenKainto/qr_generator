@@ -93,13 +93,25 @@ class _SettingScreenState extends State<SettingScreen> {
     String updatedSubFix = controllerSubFix.text;
     double updatedSizeQr = double.parse(controllerSizeQr.text);
 
-    widget.onSave(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
+    bool checkValTime = validateTimeSecWait(updatedTimeAutoReset);
+    bool checkValQR = validateQRSize(updatedSizeQr);
 
-    String resultSaving = await _dataManager.isWrote(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
-    if(resultSaving == "true"){
-      showCustomSnackBar("Data saved successfully!", true);
-    }else {
-      showCustomSnackBar("Error saving data: $resultSaving", false);
+    //validate
+    if(checkValQR && checkValTime){
+      String resultSaving = await _dataManager.isWrote(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
+      if(resultSaving == "true"){
+        showCustomSnackBar("Data saved successfully!", true);
+        widget.onSave(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
+      }else {
+        showCustomSnackBar("Error saving data: $resultSaving", false);
+      }
+    }else{
+      if(!checkValTime) showCustomSnackBar("Time to reload value must be 0 to 3600", false);
+      if(!checkValQR) {
+        final Size screenSize = MediaQuery.of(context).size;
+        final double screenWidth = screenSize.width;
+        showCustomSnackBar("Qr size value must be ${screenWidth * 0.2} to ${screenWidth * 0.86}", false);
+      }
     }
   }
 
@@ -107,7 +119,6 @@ class _SettingScreenState extends State<SettingScreen> {
     if (ScaffoldMessenger.of(context).mounted) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
     }
-
     final snackBar = SnackBar(
       content: Text(
         message,
@@ -133,6 +144,17 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  bool validateTimeSecWait(int timeSecWait){
+    if( timeSecWait < 0 ||  timeSecWait > 3600 || controllerTimeAutoReset.text.isEmpty) return false;
+    return true;
+  }
+  bool validateQRSize(double qrSize){
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    if( qrSize < screenWidth * 0.2 || qrSize > screenWidth * 0.86 || controllerSizeQr.text.isEmpty) return false;
+    return true;
   }
 
   @override
