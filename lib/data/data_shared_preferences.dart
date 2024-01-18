@@ -54,7 +54,7 @@ class DataManager {
   Future<String> getSubFix () async{
     try{
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(prefs.containsKey("subFix")) prefs.setString('preFix', "TimeKeeping");
+      if(prefs.containsKey("subFix")) prefs.setString('subFix', "TimeKeeping");
       return prefs.getString("subFix")!;
     } catch(e){
       print("Error: ${e.toString()}");
