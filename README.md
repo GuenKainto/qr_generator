@@ -1,8 +1,16 @@
-# qr_generator
+# QR Generator
+A simple project use to generate a QR to attendance for company.
 
-A new Flutter project.
+## Used
+Framework :Flutter
+Language programming :Dart
 
-## Getting Started
+## How to use
+1. Install .apk file
+2. The app will run auto update QR with 10 sec  (you can fix this in setting screen => try it out)
+3. You can stop auto update QR with stop button or go setting screen and set the time to 0, it will turn of auto update QR.
+
+## Getting Started with Flutter ?
 
 This project is a starting point for a Flutter application.
 
