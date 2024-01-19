@@ -171,7 +171,7 @@ class _SettingScreenState extends State<SettingScreen> {
       appBar: AppBar(
         title: const Text(
           "Setting",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500, ),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue[300],

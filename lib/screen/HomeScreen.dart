@@ -207,12 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(80, 80),
                     elevation: 10,
-                    backgroundColor: Colors.white,
-                    foregroundColor: _isAutoUpdateQR ? Colors.red[800] : Colors.green,
+                    backgroundColor: _isAutoUpdateQR ? Colors.red[800] : Colors.green,
+                    foregroundColor: Colors.white,
                   ),
                   child: Text(
                     _isAutoUpdateQR ? "Stop" : "Start",
-                    style: const TextStyle(fontSize: 14,),
+                    style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w900),
                   ),
                 ),
               ],
