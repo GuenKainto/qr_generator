@@ -77,9 +77,11 @@ class _SettingScreenState extends State<SettingScreen> {
   _buildQrSize(){
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
+    double min = screenWidth * 0.2;
+    double max = screenWidth * 0.86;
     return TextField(
       controller: controllerSizeQr,
-      decoration: InputDecoration(labelText: "Qr Size (${screenWidth * 0.2} - ${screenWidth * 0.86} dp)"),
+      decoration: InputDecoration(labelText: "Qr Size (${min.round()} - ${max.round()} dp)"),
       keyboardType: TextInputType.number,
       onChanged: (value) {
         setState(() {
@@ -102,17 +104,18 @@ class _SettingScreenState extends State<SettingScreen> {
     if(checkValQR && checkValTime){
       String resultSaving = await _dataManager.isWrote(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
       if(resultSaving == "true"){
-        showCustomSnackBar("Data saved successfully!", true);
         widget.onSave(updatedTimeAutoReset, updatedPreFix, updatedSubFix, updatedSizeQr);
+        showCustomSnackBar("Data saved successfully!", true);
       }else {
         showCustomSnackBar("Error saving data: $resultSaving", false);
       }
     }else{
       if(!checkValTime) showCustomSnackBar("Time to reload value must be 0 to 3600", false);
       if(!checkValQR) {
-        final Size screenSize = MediaQuery.of(context).size;
-        final double screenWidth = screenSize.width;
-        showCustomSnackBar("Qr size value must be ${screenWidth * 0.2} to ${screenWidth * 0.86}", false);
+        final double screenWidth = MediaQuery.of(context).size.width;
+        double min = screenWidth * 0.2;
+        double max = screenWidth * 0.86;
+        showCustomSnackBar("Qr size value must be ${min.round()} to ${max.round()}", false);
       }
     }
   }
@@ -153,9 +156,12 @@ class _SettingScreenState extends State<SettingScreen> {
     return true;
   }
   bool validateQRSize(double qrSize){
-    final Size screenSize = MediaQuery.of(context).size;
-    final double screenWidth = screenSize.width;
-    if( qrSize < screenWidth * 0.2 || qrSize > screenWidth * 0.86 || controllerSizeQr.text.isEmpty) return false;
+    // final Size screenSize = MediaQuery.of(context).size;
+    // final double screenWidth = screenSize.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    double min = screenWidth * 0.2;
+    double max = screenWidth * 0.86;
+    if( qrSize < min.round() || qrSize > max.round() || controllerSizeQr.text.isEmpty) return false;
     return true;
   }
 
