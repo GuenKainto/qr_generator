@@ -38,7 +38,7 @@ class _SettingScreenState extends State<SettingScreen> {
   _buildSettingTime() {
     return TextField(
       controller: controllerTimeAutoReset,
-      decoration: const InputDecoration(labelText: 'Time to reload (seconds)'),
+      decoration: const InputDecoration(labelText: 'Time to reload ( 0 - 3600 seconds)'),
       keyboardType: TextInputType.number,
       onChanged: (value) {
         setState(() {
@@ -75,9 +75,11 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   _buildQrSize(){
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
     return TextField(
       controller: controllerSizeQr,
-      decoration: const InputDecoration(labelText: 'Qr Size'),
+      decoration: InputDecoration(labelText: "Qr Size (${screenWidth * 0.2} - ${screenWidth * 0.86} dp)"),
       keyboardType: TextInputType.number,
       onChanged: (value) {
         setState(() {
