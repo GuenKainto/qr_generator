@@ -133,9 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           _qr.size = updatedSizeQr;
 
                           if(updatedTimeAutoReset != 0) {
+                            _isAutoUpdateQR = true;
                             autoReload();
                           }
                           else {
+                            _isAutoUpdateQR = false;
                             stopReload();
                           }
                         });
@@ -205,12 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(80, 80),
                     elevation: 10,
+                    backgroundColor: Colors.white,
+                    foregroundColor: _isAutoUpdateQR ? Colors.red[800] : Colors.green,
                   ),
                   child: Text(
                     _isAutoUpdateQR ? "Stop" : "Start",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: _isAutoUpdateQR ? Colors.red[800] : Colors.green[400]),
+                    style: const TextStyle(fontSize: 14,),
                   ),
                 ),
               ],

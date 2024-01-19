@@ -212,6 +212,8 @@ class _SettingScreenState extends State<SettingScreen> {
         onPressed: onSaveButtonClick,
         label: const Text('Save'),
         icon: const Icon(Icons.save),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
